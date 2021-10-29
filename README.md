@@ -1,6 +1,8 @@
 # rdx_basicneeds
 This script implements hunger and thirst status, they can be increased when eating bread or drinking water.
 
+- [RDX Framework Discord](https://discord.gg/VkhUUGHpNs)
+
 ## Requirements
 - [rdx_status](https://github.com/Redm-Extended-PT/rdx_status)
 
