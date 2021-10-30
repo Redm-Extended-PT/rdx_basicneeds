@@ -41,17 +41,50 @@ end)
 AddEventHandler('rdx_status:loaded', function(status)
 
 	TriggerEvent('rdx_status:registerStatus', 'hunger', 1000000, '#CFAD0F', function(status)
-		return Config.Visible
+		return true
 	end, function(status)
 		status.remove(100)
 	end)
 
 	TriggerEvent('rdx_status:registerStatus', 'thirst', 1000000, '#0C98F1', function(status)
-		return Config.Visible
+		return true
 	end, function(status)
 		status.remove(75)
 	end)
 
+	Citizen.CreateThread(function()
+		while true do
+			Citizen.Wait(1000)
+
+			local playerPed  = PlayerPedId()
+			local prevHealth = GetEntityHealth(playerPed)
+			local health     = prevHealth
+
+			TriggerEvent('rdx_status:getStatus', 'hunger', function(status)
+				if status.val == 0 then
+					if prevHealth <= 150 then
+						health = health - 5
+					else
+						health = health - 1
+					end
+				end
+			end)
+
+			TriggerEvent('rdx_status:getStatus', 'thirst', function(status)
+				if status.val == 0 then
+					if prevHealth <= 150 then
+						health = health - 5
+					else
+						health = health - 1
+					end
+				end
+			end)
+
+			if health ~= prevHealth then
+				SetEntityHealth(playerPed, health)
+			end
+		end
+	end)
 end)
 
 AddEventHandler('rdx_basicneeds:isEating', function(cb)
