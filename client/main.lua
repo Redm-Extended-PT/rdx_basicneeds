@@ -41,13 +41,13 @@ end)
 AddEventHandler('rdx_status:loaded', function(status)
 
 	TriggerEvent('rdx_status:registerStatus', 'hunger', 1000000, '#CFAD0F', function(status)
-		return true
+		return Config.Visible
 	end, function(status)
 		status.remove(100)
 	end)
 
 	TriggerEvent('rdx_status:registerStatus', 'thirst', 1000000, '#0C98F1', function(status)
-		return true
+		return Config.Visible
 	end, function(status)
 		status.remove(75)
 	end)
